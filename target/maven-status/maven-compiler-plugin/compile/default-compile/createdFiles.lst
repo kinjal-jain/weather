@@ -7,5 +7,6 @@ io/egen/weather/service/WeatherService.class
 io/egen/weather/JPAConfig.class
 io/egen/weather/repository/WeatherRepo.class
 io/egen/weather/persistence/entity/Wind.class
+io/egen/weather/persistence/dto/SearchResult.class
 io/egen/weather/ServeletInitializer.class
 io/egen/weather/WebConfig.class

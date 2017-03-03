@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import io.egen.weather.persistence.dto.AverageWeather;
+import io.egen.weather.persistence.dto.SearchResult;
 import io.egen.weather.persistence.entity.Weather;
 import io.egen.weather.repository.WeatherRepo;
 
@@ -40,12 +41,19 @@ public class WeatherRepoImpl implements WeatherRepo {
 		return weather.get(0);
 	}
 
-
 	@Override
 	public AverageWeather getAvgWeather(String city, String timeframe) {
 		TypedQuery<AverageWeather> query = em.createNamedQuery("Weather.getAvgWeather",AverageWeather.class);
 		query.setParameter("wCity", city);
 		query.setParameter("wId", timeframe);
 		return query.getSingleResult();
+	}
+
+	@Override
+	public Weather search(String city) {
+		TypedQuery<Weather> query = em.createNamedQuery("Weather.getLatestProperty",Weather.class);
+		query.setParameter("wCity", city);
+		List<Weather> weather = query.getResultList();
+		return weather.get(0);
 	}
 }

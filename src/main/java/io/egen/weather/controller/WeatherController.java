@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.egen.weather.persistence.dto.AverageWeather;
+import io.egen.weather.persistence.dto.SearchResult;
 import io.egen.weather.persistence.entity.Weather;
 import io.egen.weather.service.WeatherService;
 
@@ -27,9 +28,9 @@ public class WeatherController {
 		return service.create(weather);
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/citylist")
-	public List<String> cityList(){
-		return service.cityList();
+	@RequestMapping(method = RequestMethod.GET, value = "/cities")
+	public List<String> uniqueCities(){
+		return service.getUniqueCityList();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/latest/{city}")
@@ -40,6 +41,11 @@ public class WeatherController {
 	@RequestMapping(method = RequestMethod.GET, value = "/average")
 	public AverageWeather avgWeather(@RequestParam("city") String city, @RequestParam("timeframe") String timeframe){
 		return service.avgWeather(city,timeframe);
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "latest/search")
+	public SearchResult search(@RequestParam("city") String city, @RequestParam("property") String property){
+		return service.search(city,property);
 	}
 	
 }
