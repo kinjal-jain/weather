@@ -1,0 +1,11 @@
+io/egen/weather/controller/WeatherController.class
+io/egen/weather/service/impl/WeatherServiceImpl.class
+io/egen/weather/repository/impl/WeatherRepoImpl.class
+io/egen/weather/persistence/entity/Weather.class
+io/egen/weather/persistence/dto/AverageWeather.class
+io/egen/weather/service/WeatherService.class
+io/egen/weather/JPAConfig.class
+io/egen/weather/repository/WeatherRepo.class
+io/egen/weather/persistence/entity/Wind.class
+io/egen/weather/ServeletInitializer.class
+io/egen/weather/WebConfig.class

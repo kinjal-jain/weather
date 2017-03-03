@@ -1,0 +1,11 @@
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/persistence/entity/Weather.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/WebConfig.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/persistence/dto/AverageWeather.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/JPAConfig.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/ServeletInitializer.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/service/impl/WeatherServiceImpl.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/persistence/entity/Wind.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/repository/WeatherRepo.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/repository/impl/WeatherRepoImpl.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/service/WeatherService.java
+/home/kinjal/workspace/weather-app/src/main/java/io/egen/weather/controller/WeatherController.java
