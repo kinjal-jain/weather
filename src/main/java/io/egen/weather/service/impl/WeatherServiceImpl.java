@@ -37,7 +37,6 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public AverageWeather avgWeather(String city, String timeframe) {
-		System.out.println(repository.getAvgWeather(city, timeframe));
 		return repository.getAvgWeather(city, timeframe);
 	}
 	
@@ -66,7 +65,7 @@ public class WeatherServiceImpl implements WeatherService {
 			sresult.setValue(Double.toString(weather.getWind().getDegree()));
 			break;
 		case "timestamp":
-			sresult.setValue(weather.getTimestamp());
+			sresult.setValue(weather.getTimestamp().toString());
 			break;
 		default:
 			sresult.setProperty("city");

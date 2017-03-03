@@ -3,11 +3,9 @@ package io.egen.weather.persistence.dto;
 public class AverageWeather {
 
 	private String city;
-	private String avgHumidity;
-	private String avgPressure;
-	private String avgTemperature;
-	private String avgWindSpeed;
-	private String avgWindDegree;
+	private Double avgHumidity;
+	private Double avgPressure;
+	private Double avgTemperature;
 	
 	public String getCity() {
 		return city;
@@ -17,44 +15,33 @@ public class AverageWeather {
 		this.city = city;
 	}
 	
-	public String getAvgHumidity() {
+	public AverageWeather(String city, Double avgHumidity, Double avgPressure, Double avgTemperature) {
+		this.city= city;
+		this.avgHumidity = avgHumidity;
+		this.avgPressure = avgPressure;
+		this.avgTemperature = avgTemperature;
+	}
+	public Double getAvgHumidity() {
 		return avgHumidity;
 	}
 	
-	public void setAvgHumidity(String avgHumidity) {
+	public void setAvgHumidity(Double avgHumidity) {
 		this.avgHumidity = avgHumidity;
 	}
 	
-	public String getAvgPressure() {
+	public Double getAvgPressure() {
 		return avgPressure;
 	}
 	
-	public void setAvgPressure(String avgPressure) {
+	public void setAvgPressure(Double avgPressure) {
 		this.avgPressure = avgPressure;
 	}
 	
-	public String getAvgTemperature() {
+	public Double getAvgTemperature() {
 		return avgTemperature;
 	}
 	
-	public void setAvgTemperature(String avgTemperature) {
+	public void setAvgTemperature(Double avgTemperature) {
 		this.avgTemperature = avgTemperature;
 	}
-	
-	public String getAvgWindSpeed() {
-		return avgWindSpeed;
-	}
-	
-	public void setAvgWindSpeed(String avgWindSpeed) {
-		this.avgWindSpeed = avgWindSpeed;
-	}
-	
-	public String getAvgWindDegree() {
-		return avgWindDegree;
-	}
-	
-	public void setAvgWindDegree(String avgWindDegree) {
-		this.avgWindDegree = avgWindDegree;
-	}
-	
 }

@@ -42,11 +42,12 @@ public class WeatherRepoImpl implements WeatherRepo {
 	}
 
 	@Override
-	public AverageWeather getAvgWeather(String city, String timeframe) {
-		TypedQuery<AverageWeather> query = em.createNamedQuery("Weather.getAvgWeather",AverageWeather.class);
-		query.setParameter("wCity", city);
-		query.setParameter("wId", timeframe);
-		return query.getSingleResult();
+	public AverageWeather getAvgWeather(String city, String timeframe) {            
+		AverageWeather avgWeather = (AverageWeather) em.createNamedQuery("Weather.getAvgWeather",AverageWeather.class)
+				.setParameter("wCity", city)
+				.getSingleResult();
+		System.out.println("I am in average weather -- " + avgWeather.getAvgHumidity());
+		return avgWeather;
 	}
 
 	@Override

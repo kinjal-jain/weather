@@ -1,5 +1,6 @@
 package io.egen.weather.persistence.entity;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -7,13 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import io.egen.weather.persistence.entity.Wind;
 
 @Entity
 @NamedQueries({
 	@NamedQuery(name = "Weather.getCityList", query = "SELECT DISTINCT city FROM Weather"),
 	@NamedQuery(name = "Weather.getLatestWeather", query = "SELECT w FROM Weather w WHERE w.city=:wCity ORDER BY w.timestamp DESC"),
-	@NamedQuery(name = "Weather.getAvgWeather", query = "SELECT ROUND(AVG(humidity),2) AS avgHumidity, ROUND(AVG(pressure),2) AS avgPressure, ROUND(AVG(temperature),2) AS avgTemperature FROM Weather WHERE city=:wCity"),
+	@NamedQuery(name = "Weather.getAvgWeather", query = "SELECT NEW io.egen.weather.persistence.dto.AverageWeather(city, ROUND(AVG(humidity),2) AS avgHumidity, ROUND(AVG(pressure),2) AS avgPressure, ROUND(AVG(temperature),2) AS avgTemperature) FROM Weather WHERE city=:wCity"),
 	@NamedQuery(name = "Weather.getLatestProperty", query = "SELECT w FROM Weather w WHERE w.city=:wCity ORDER BY w.timestamp DESC")
 })
 public class Weather {
@@ -30,7 +34,9 @@ public class Weather {
 	@OneToOne
 	private Wind wind;
 	
-	private String timestamp;
+	@Temporal(TemporalType.TIMESTAMP)
+    private Date timestamp;
+	//private String timestamp;
 	
 	public Weather() {
 		this.id = UUID.randomUUID().toString();
@@ -92,11 +98,11 @@ public class Weather {
 		this.wind = wind;
 	}
 	
-	public String getTimestamp() {
+	public Date getTimestamp() {
 		return timestamp;
 	}
 	
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 	
