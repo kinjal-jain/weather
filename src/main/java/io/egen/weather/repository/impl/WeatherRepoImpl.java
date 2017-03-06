@@ -46,7 +46,6 @@ public class WeatherRepoImpl implements WeatherRepo {
 		AverageWeather avgWeather = (AverageWeather) em.createNamedQuery("Weather.getAvgWeather",AverageWeather.class)
 				.setParameter("wCity", city)
 				.getSingleResult();
-		System.out.println("I am in average weather -- " + avgWeather.getAvgHumidity());
 		return avgWeather;
 	}
 

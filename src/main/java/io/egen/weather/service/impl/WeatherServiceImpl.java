@@ -44,8 +44,8 @@ public class WeatherServiceImpl implements WeatherService {
 	public SearchResult search(String city, String property) {
 		Weather weather = repository.search(city);
 		SearchResult sresult = new SearchResult();
-		sresult.setProperty(property);
-		switch(property) {
+		sresult.setProperty(property.toLowerCase());
+		switch(property.toLowerCase()) {
 		case "description":
 			sresult.setValue(weather.getDescription());
 			break;
