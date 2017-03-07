@@ -6,7 +6,7 @@ public class ServeletInitializer extends AbstractAnnotationConfigDispatcherServl
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] {WebConfig.class, JPAConfig.class};
+		return new Class[] {WebConfig.class, JPAConfig.class, SwaggerConfig.class};
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class ServeletInitializer extends AbstractAnnotationConfigDispatcherServl
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[]{"/api/*"};
+		return new String[]{"/*"};
 	}
 
 }
