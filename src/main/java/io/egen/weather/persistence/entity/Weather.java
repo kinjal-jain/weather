@@ -3,8 +3,10 @@ package io.egen.weather.persistence.entity;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -14,12 +16,6 @@ import javax.persistence.TemporalType;
 import io.egen.weather.persistence.entity.Wind;
 
 @Entity
-@NamedQueries({
-	@NamedQuery(name = "Weather.getCityList", query = "SELECT DISTINCT city FROM Weather"),
-	@NamedQuery(name = "Weather.getLatestWeather", query = "SELECT w FROM Weather w WHERE w.city=:wCity ORDER BY w.timestamp DESC"),
-	@NamedQuery(name = "Weather.getAvgWeather", query = "SELECT NEW io.egen.weather.persistence.dto.AverageWeather(city, ROUND(AVG(humidity),2) AS avgHumidity, ROUND(AVG(pressure),2) AS avgPressure, ROUND(AVG(temperature),2) AS avgTemperature) FROM Weather WHERE city=:wCity"),
-	@NamedQuery(name = "Weather.getLatestProperty", query = "SELECT w FROM Weather w WHERE w.city=:wCity ORDER BY w.timestamp DESC")
-})
 public class Weather {
 
 	@Id
@@ -31,7 +27,7 @@ public class Weather {
 	private double pressure;
 	private float temperature;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Wind wind;
 	
 	@Temporal(TemporalType.TIMESTAMP)

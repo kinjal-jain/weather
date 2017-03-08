@@ -22,7 +22,7 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	@Transactional
 	public Weather create(Weather weather) {
-		return repository.create(weather);
+		return repository.save(weather);
 	}
 
 	@Override
@@ -32,17 +32,19 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public Weather latestWeather(String city) {
-		return repository.getLatestWeather(city);
+		List<Weather> weather = repository.getLatestWeather(city);
+		return weather.get(0);
 	}
 
 	@Override
 	public AverageWeather avgWeather(String city, String timeframe) {
-		return repository.getAvgWeather(city, timeframe);
+		return repository.getAvgWeather(city);
 	}
 	
 	@Override
 	public SearchResult search(String city, String property) {
-		Weather weather = repository.search(city);
+		List<Weather> weatherList = repository.search(city);
+		Weather weather = weatherList.get(0);
 		SearchResult sresult = new SearchResult();
 		sresult.setProperty(property);
 		switch(property) {

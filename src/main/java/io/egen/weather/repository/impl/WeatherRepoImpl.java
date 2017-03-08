@@ -14,47 +14,48 @@ import io.egen.weather.persistence.entity.Weather;
 import io.egen.weather.repository.WeatherRepo;
 
 @Repository
-public class WeatherRepoImpl implements WeatherRepo {
+public abstract class WeatherRepoImpl implements WeatherRepo {
 	
 	@PersistenceContext
 	private EntityManager em;
 	
-	@Override
-	public Weather create(Weather weather) {
-		em.persist(weather.getWind());
-		em.persist(weather);
-		em.flush();
-		return weather;
-	} 
+//	@Override
+//	public Weather create(Weather weather) {
+//		em.persist(weather.getWind());
+//		em.persist(weather);
+//		em.flush();
+//		return weather;
+//	} 
 	
-	@Override
-	public List<String> getCityList(){
-		TypedQuery<String> query = em.createNamedQuery("Weather.getCityList",String.class);
-		return query.getResultList();
-	}
+//	@Override
+//	public List<String> getCityList(){
+//		TypedQuery<String> query = em.createNamedQuery("Weather.getCityList",String.class);
+//		return query.getResultList();
+//	}
+//
+//	@Override
+//	public Weather getLatestWeather(String city) {
+//		TypedQuery<Weather> query = em.createNamedQuery("Weather.getLatestWeather",Weather.class);
+//		query.setParameter("wCity", city);
+//		List<Weather> weather = query.getResultList();
+//		return weather.get(0);
+//	}
+//
+//	@Override
+//	public AverageWeather getAvgWeather(String city, String timeframe) {            
+//		AverageWeather avgWeather = (AverageWeather) em.createNamedQuery("Weather.getAvgWeather",AverageWeather.class)
+//				.setParameter("wCity", city)
+//				.getSingleResult();
+//		System.out.println("I am in average weather -- " + avgWeather.getAvgHumidity());
+//		return avgWeather;
+//	}
+//
+//	@Override
+//	public Weather search(String city) {
+//		TypedQuery<Weather> query = em.createNamedQuery("Weather.getLatestProperty",Weather.class);
+//		query.setParameter("wCity", city);
+//		List<Weather> weather = query.getResultList();
+//		return weather.get(0);
+//	}
 
-	@Override
-	public Weather getLatestWeather(String city) {
-		TypedQuery<Weather> query = em.createNamedQuery("Weather.getLatestWeather",Weather.class);
-		query.setParameter("wCity", city);
-		List<Weather> weather = query.getResultList();
-		return weather.get(0);
-	}
-
-	@Override
-	public AverageWeather getAvgWeather(String city, String timeframe) {            
-		AverageWeather avgWeather = (AverageWeather) em.createNamedQuery("Weather.getAvgWeather",AverageWeather.class)
-				.setParameter("wCity", city)
-				.getSingleResult();
-		System.out.println("I am in average weather -- " + avgWeather.getAvgHumidity());
-		return avgWeather;
-	}
-
-	@Override
-	public Weather search(String city) {
-		TypedQuery<Weather> query = em.createNamedQuery("Weather.getLatestProperty",Weather.class);
-		query.setParameter("wCity", city);
-		List<Weather> weather = query.getResultList();
-		return weather.get(0);
-	}
 }
