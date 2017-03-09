@@ -30,6 +30,11 @@ public class WeatherController {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	@ApiOperation(value = "Gets the data")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 500, message = "Internal Server Error")
+	})
 	public Weather create(@RequestBody Weather weather){
 		return service.create(weather);
 	}
@@ -38,6 +43,7 @@ public class WeatherController {
 	@ApiOperation(value = "find all cities", notes = "Returns a list of cities of which weather data is present")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error")
 	})
 	public List<String> uniqueCities(){
@@ -46,18 +52,33 @@ public class WeatherController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/latest/{city}")
 	@ApiOperation(value = "find latest weather of the city", notes = "Returns the latest weather of the city asked by the user")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error")
+	})
 	public Weather latestWeather(@PathVariable("city") String city){
 		return service.latestWeather(city);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/average")
 	@ApiOperation(value = "finds the average data of the city", notes = "Returns the average data of the city's weather for the time period asked by the user")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error")
+	})
 	public AverageWeather avgWeather(@RequestParam("city") String city, @RequestParam("timeframe") String timeframe){
 		return service.avgWeather(city,timeframe);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "latest/search")
 	@ApiOperation(value = "finds the latest average data of the city", notes = "Returns the latest average value of the property asked for the city")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 500, message = "Internal Server Error")
+	})
 	public SearchResult search(@RequestParam("city") String city, @RequestParam("property") String property){
 		return service.search(city,property);
 	}
