@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.egen.weather.exception.NotFoundException;
 import io.egen.weather.persistence.dto.AverageWeather;
 import io.egen.weather.persistence.dto.SearchResult;
 import io.egen.weather.persistence.entity.Weather;
@@ -21,24 +22,35 @@ public class WeatherServiceImpl implements WeatherService {
 	
 	@Override
 	@Transactional
-	public Weather create(Weather weather) {
+	public Weather create(Weather weather){
 		return repository.save(weather);
 	}
-
+	
 	@Override
 	public List<String> getUniqueCityList(){
 		return repository.getCityList();
 	}
 
 	@Override
-	public Weather latestWeather(String city) {
+	public Weather latestWeather(String city){
 		List<Weather> weather = repository.getLatestWeather(city);
-		return weather.get(0);
+		if(weather.size() > 0){
+			return weather.get(0);
+		}
+		else{
+			throw new NotFoundException("Weather for city name "+city+" doesn't exist.");
+		}
 	}
 
 	@Override
 	public AverageWeather avgWeather(String city, String timeframe) {
-		return repository.getAvgWeather(city);
+		AverageWeather existing = repository.getAvgWeather(city);
+		if(existing != null){
+			return repository.getAvgWeather(city);
+		}
+		else{
+			throw new NotFoundException("Average weather for the city "+city+" can not be found.");
+		}
 	}
 	
 	@Override
@@ -74,7 +86,12 @@ public class WeatherServiceImpl implements WeatherService {
 			sresult.setValue(city);
 			break;
 		}
-		return sresult;
+		if(weatherList.size() > 0 && (property.equalsIgnoreCase("humidity") || property.equalsIgnoreCase("pressure") || property.equalsIgnoreCase("temperature"))){
+			return sresult;
+		}
+		else{
+			throw new NotFoundException("Property "+property+" for the city "+city+" doesn't exist.");
+		}
 	}
 
 	
