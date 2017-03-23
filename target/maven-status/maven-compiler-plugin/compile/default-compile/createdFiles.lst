@@ -1,11 +1,13 @@
-io/egen/weather/controller/WeatherController.class
 io/egen/weather/service/impl/WeatherServiceImpl.class
 io/egen/weather/persistence/entity/Weather.class
 io/egen/weather/persistence/dto/AverageWeather.class
 io/egen/weather/service/WeatherService.class
 io/egen/weather/config/WebConfig.class
-io/egen/weather/Application.class
-io/egen/weather/config/SwaggerConfig.class
 io/egen/weather/repository/WeatherRepo.class
+io/egen/weather/exception/BadRequestException.class
 io/egen/weather/persistence/entity/Wind.class
 io/egen/weather/persistence/dto/SearchResult.class
+io/egen/weather/controller/WeatherController.class
+io/egen/weather/Application.class
+io/egen/weather/config/SwaggerConfig.class
+io/egen/weather/exception/NotFoundException.class

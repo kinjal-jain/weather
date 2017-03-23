@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.egen.weather.exception.BadRequestException;
 import io.egen.weather.persistence.dto.AverageWeather;
 import io.egen.weather.persistence.dto.SearchResult;
 import io.egen.weather.persistence.entity.Weather;
@@ -82,5 +83,6 @@ public class WeatherController {
 	public SearchResult search(@RequestParam("city") String city, @RequestParam("property") String property){
 		return service.search(city,property);
 	}
+	
 	
 }

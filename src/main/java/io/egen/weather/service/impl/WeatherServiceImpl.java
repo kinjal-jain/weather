@@ -1,12 +1,15 @@
 package io.egen.weather.service.impl;
 
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.egen.weather.exception.BadRequestException;
 import io.egen.weather.exception.NotFoundException;
 import io.egen.weather.persistence.dto.AverageWeather;
 import io.egen.weather.persistence.dto.SearchResult;
@@ -44,12 +47,15 @@ public class WeatherServiceImpl implements WeatherService {
 
 	@Override
 	public AverageWeather avgWeather(String city, String timeframe) {
-		AverageWeather existing = repository.getAvgWeather(city);
+		long timeValue = TimeUnit.HOURS.toMillis(Integer.parseInt(timeframe));
+		long timeResult = System.currentTimeMillis()-((Integer.parseInt(timeframe))*timeValue);
+		Date time = new Date(timeResult);
+		AverageWeather existing = repository.getAvgWeather(city, time);
 		if(existing != null){
-			return repository.getAvgWeather(city);
+			return existing;
 		}
 		else{
-			throw new NotFoundException("Average weather for the city "+city+" can not be found.");
+			throw new BadRequestException("Average weather for the city "+city+" can not be found.");
 		}
 	}
 	
@@ -90,9 +96,9 @@ public class WeatherServiceImpl implements WeatherService {
 			return sresult;
 		}
 		else{
-			throw new NotFoundException("Property "+property+" for the city "+city+" doesn't exist.");
+			throw new BadRequestException("Property "+property+" for the city "+city+" doesn't exist.");
 		}
 	}
 
-	
+		
 }
