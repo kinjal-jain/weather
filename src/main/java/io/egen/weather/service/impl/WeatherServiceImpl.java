@@ -48,7 +48,7 @@ public class WeatherServiceImpl implements WeatherService {
 	@Override
 	public AverageWeather avgWeather(String city, String timeframe) {
 		long timeValue = TimeUnit.HOURS.toMillis(Integer.parseInt(timeframe));
-		long timeResult = System.currentTimeMillis()-((Integer.parseInt(timeframe))*timeValue);
+		long timeResult = System.currentTimeMillis()-(timeValue);
 		Date time = new Date(timeResult);
 		AverageWeather existing = repository.getAvgWeather(city, time);
 		if(existing != null){
