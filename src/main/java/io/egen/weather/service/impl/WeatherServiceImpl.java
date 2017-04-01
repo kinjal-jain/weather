@@ -1,12 +1,16 @@
 package io.egen.weather.service.impl;
 
 
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.egen.weather.exception.BadRequestException;
+import io.egen.weather.exception.NotFoundException;
 import io.egen.weather.persistence.dto.AverageWeather;
 import io.egen.weather.persistence.dto.SearchResult;
 import io.egen.weather.persistence.entity.Weather;
@@ -21,24 +25,38 @@ public class WeatherServiceImpl implements WeatherService {
 	
 	@Override
 	@Transactional
-	public Weather create(Weather weather) {
+	public Weather create(Weather weather){
 		return repository.save(weather);
 	}
-
+	
 	@Override
 	public List<String> getUniqueCityList(){
 		return repository.getCityList();
 	}
 
 	@Override
-	public Weather latestWeather(String city) {
+	public Weather latestWeather(String city){
 		List<Weather> weather = repository.getLatestWeather(city);
-		return weather.get(0);
+		if(weather.size() > 0){
+			return weather.get(0);
+		}
+		else{
+			throw new NotFoundException("Weather for city name "+city+" doesn't exist.");
+		}
 	}
 
 	@Override
 	public AverageWeather avgWeather(String city, String timeframe) {
-		return repository.getAvgWeather(city);
+		long timeValue = TimeUnit.HOURS.toMillis(Integer.parseInt(timeframe));
+		long timeResult = System.currentTimeMillis()-(timeValue);
+		Date time = new Date(timeResult);
+		AverageWeather existing = repository.getAvgWeather(city, time);
+		if(existing != null){
+			return existing;
+		}
+		else{
+			throw new BadRequestException("Average weather for the city "+city+" can not be found.");
+		}
 	}
 	
 	@Override
@@ -74,8 +92,13 @@ public class WeatherServiceImpl implements WeatherService {
 			sresult.setValue(city);
 			break;
 		}
-		return sresult;
+		if(weatherList.size() > 0 && (property.equalsIgnoreCase("humidity") || property.equalsIgnoreCase("pressure") || property.equalsIgnoreCase("temperature"))){
+			return sresult;
+		}
+		else{
+			throw new BadRequestException("Property "+property+" for the city "+city+" doesn't exist.");
+		}
 	}
 
-	
+		
 }

@@ -17,4 +17,5 @@ public interface WeatherService {
 	AverageWeather avgWeather(String city, String timeframe);
 	
 	SearchResult search(String city, String property);
+
 }

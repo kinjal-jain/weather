@@ -6,9 +6,6 @@ import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -32,7 +29,6 @@ public class Weather {
 	
 	@Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
-	//private String timestamp;
 	
 	public Weather() {
 		this.id = UUID.randomUUID().toString();
